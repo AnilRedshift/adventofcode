@@ -1,12 +1,9 @@
 defmodule AOC do
-  @spec run(integer, integer) :: {:ok, [String.t()]} | {:error, String.t()}
+  @spec run(integer, integer) :: term | {:error, String.t()}
   def run(year, problem) do
     with {:ok, inputs} <- download_inputs(year, problem) do
-      output =
-        String.to_atom("Elixir.AOC.SolveY#{year}P#{problem}")
-        |> apply(:solve, [inputs])
-
-      {:ok, output}
+      String.to_atom("Elixir.AOC.Solve#{year}P#{problem}")
+      |> apply(:solve, [inputs])
     end
   end
 
