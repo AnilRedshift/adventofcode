@@ -6,10 +6,30 @@ defmodule AOC.Solve2019P2 do
     AOC.Parser.parse_as_integer_array(inputs)
     |> List.replace_at(1, 12)
     |> List.replace_at(2, 2)
-    |> run_program(0)
+    |> run_program()
+    |> Enum.at(0)
   end
 
-  def run_program(program, index) do
+  @impl AOC.Solver
+  def solve2(inputs) do
+    program = AOC.Parser.parse_as_integer_array(inputs)
+
+    for x <- 0..100 do
+      for y <- 0..100 do
+        program
+        |> List.replace_at(1, x)
+        |> List.replace_at(2, y)
+        |> run_program()
+        |> case do
+          [19_690_720, _] -> 100 * x + y
+          _ -> nil
+        end
+      end
+    end
+    |> Enum.find(&(&1 != nil))
+  end
+
+  def run_program(program, index \\ 0) do
     next_index = index + 4
 
     Enum.slice(program, index..(next_index - 1))

@@ -5,6 +5,13 @@ defmodule AOC.Solve2019P1 do
   def solve(inputs) do
     AOC.Parser.parse_as_integers(inputs)
     |> Enum.map(&get_fuel_requirements/1)
+    |> Enum.sum()
+  end
+
+  @impl AOC.Solver
+  def solve2(inputs) do
+    AOC.Parser.parse_as_integers(inputs)
+    |> Enum.map(&get_fuel_requirements/1)
     |> Enum.map(&add_fuel_for_fuel/1)
     |> Enum.sum()
   end
